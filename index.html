@@ -87,7 +87,7 @@
     }
 
     function fetchNearbyRestaurants(userLocation) {
-      const nearbyRestaurants = restaurants.filter((restaurant) => {
+      const nearbyRestaurants = searchRadius === 'all' ? restaurants : restaurants.filter((restaurant) => {
         const restaurantLocation = {
           lat: restaurant.Latitude,
           lng: restaurant.Longitude
@@ -147,7 +147,7 @@
       restaurants.forEach((restaurant) => {
         let restaurantDiv = document.createElement('div');
         restaurantDiv.className = 'restaurant-item';
-        restaurantDiv.innerHTML = `<div class="restaurant-name">${restaurant['Restaurant Name']}</div><div class="restaurant-address"> - Cuisines: ${restaurant['Cuisines']} <br> - Price Range: ${restaurant['Price Range']}</div>`;
+        restaurantDiv.innerHTML = `<div class="restaurant-name">${restaurant['Restaurant Name']}</div><div class="restaurant-address">${restaurant['Cuisines']} <br> - Price Range: ${restaurant['Price Range']}</div>`;
         sidebarContent.appendChild(restaurantDiv);
 
         let placeLocation = {
@@ -214,7 +214,7 @@
 
       const radiusSelect = document.getElementById("radius-select");
       radiusSelect.addEventListener("change", (event) => {
-        searchRadius = parseInt(event.target.value);
+        searchRadius = event.target.value === 'all' ? 'all' : parseInt(event.target.value);
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
             const userLocation = {
@@ -347,7 +347,6 @@
       <h2 style="text-align:right"> HKRIA</h2>
       <h2></h2>
       <h3> Nearby Restaurants</h3>
-      <p>Anson Area</p>
       <div id="restaurant-list"></div>
     </div>
     <div id="map"></div>
@@ -356,7 +355,7 @@
       <option value="200">200 meters</option>
       <option value="300">300 meters</option>
       <option value="400">400 meters</option>
-      <option value="1000">1000 meters</option>
+      <option value="all">All</option>
     </select>
   </div>
 </body>
