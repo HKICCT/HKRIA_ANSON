@@ -12710,16 +12710,6 @@
         "Latitude":22.3127329
     },
     {
-        "Restaurant Name":"Osaka Ohaho",
-        "Location":"Food Fiesta, 2\/F, Millennium City 5 (apm), 418 Kwun Tong Road",
-        "District":"Kwun Tong",
-        "Cuisines":"Japanese,Wonton\/Dumpling",
-        "Price Range":"Below $50",
-        "Timestamp":"2024-10-04 11:03:48",
-        "Longitude":135.5022535,
-        "Latitude":34.6937249
-    },
-    {
         "Restaurant Name":"Food Fiesta",
         "Location":"2\/F Food Court, Millennium City 5 (apm), 418 Kwun Tong Road",
         "District":"Kwun Tong",
@@ -44006,8 +43996,8 @@
         "Cuisines":"Japanese,Food Court",
         "Price Range":"Below $50",
         "Timestamp":"2024-10-04 16:15:48",
-        "Longitude":138.252924,
-        "Latitude":36.204824
+        "Longitude":114.161833646,
+        "Latitude":22.3156745785
     },
     {
         "Restaurant Name":"Quenches",
@@ -77448,16 +77438,6 @@
         "Timestamp":"2024-10-09 11:47:16",
         "Longitude":113.9925734,
         "Latitude":22.3737153
-    },
-    {
-        "Restaurant Name":"\u6c99\u7530\u99ac\u5834\u99ac\u6703\u5ec2\u623f",
-        "Location":"2\/F, Block1, Grandstand, Racecourt",
-        "District":"Sha Tin",
-        "Cuisines":"Hong Kong Style",
-        "Price Range":"$401-800",
-        "Timestamp":"2024-10-09 11:47:16",
-        "Longitude":6.192337,
-        "Latitude":48.257598
     },
     {
         "Restaurant Name":"Joe-San",
