@@ -1138,5 +1138,20 @@
         "Type":"Unique",
         "Cleaned Restaurant Name":"Wow Tea",
         "Person":"Anson"
+    },
+    {
+        "Restaurant Name":"The Pier Bar",
+        "Code":"R12358",
+        "Opportunities":"High",
+        "Location":"G\/F, Pier 3, Discovery Bay Ferry Terminal",
+        "District":"Central",
+        "Cuisines":"Western,Bar",
+        "Price Range":"Below $50",
+        "Timestamp":"2024-10-04 14:44:20",
+        "Longitude":114.0175872,
+        "Latitude":22.2968165,
+        "Type":"Unique",
+        "Cleaned Restaurant Name":"The Pier Bar",
+        "Person":"Jacqueline"
     }
 ]
