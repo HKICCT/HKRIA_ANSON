@@ -49,13 +49,6 @@
       await loadRestaurants();
       await loadRestaurantsGroup();
 
-      const oms = new OverlappingMarkerSpiderfier(map, {
-        markersWontMove: true,
-        markersWontHide: true,
-        basicFormatEvents: true
-      });
-      window.oms = oms;
-
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
           const userLocation = {
@@ -71,6 +64,13 @@
             streetViewControl: false,
             fullscreenControl: false
           });
+
+          const oms = new OverlappingMarkerSpiderfier(map, {
+            markersWontMove: true,
+            markersWontHide: true,
+            basicFormatEvents: true
+          });
+          window.oms = oms;
 
           // Add a marker for user's location
           userMarker = new google.maps.Marker({
@@ -207,6 +207,7 @@
         });
 
         oms.addMarker(marker);
+
         google.maps.event.addListener(marker, 'spider_click', () => {
           if (currentOpenInfoWindow) {
             currentOpenInfoWindow.close();
@@ -216,37 +217,24 @@
           infoWindowOpen = true;
           stopGeolocationTracking();
         });
-        
-        currentInfoWindow.addListener('closeclick', () => {
-          infoWindowOpen = false;
-          startGeolocationTracking();
+        // Sidebar entry click triggers 'spider_click' event
+        restaurantDiv.addEventListener('click', () => {
+          google.maps.event.trigger(marker, 'spider_click');
+          map.setCenter(marker.getPosition());
         });
 
-        marker.addListener('click', () => {
-          if (currentOpenInfoWindow) {
-            currentOpenInfoWindow.close();
-          }
-          currentOpenInfoWindow = currentInfoWindow;
-          currentInfoWindow.open(map, marker);
-          infoWindowOpen = true;
-          stopGeolocationTracking();
-        });
 
         restaurantDiv.addEventListener('click', () => {
-          if (currentOpenInfoWindow) {
-            currentOpenInfoWindow.close();
-          }
-          currentOpenInfoWindow = currentInfoWindow;
-          currentInfoWindow.open(map, marker);
+          google.maps.event.trigger(marker, 'spider_click');
           map.setCenter(marker.getPosition());
-          infoWindowOpen = true;
-          stopGeolocationTracking();
         });
 
+                // Handle info window close event
         currentInfoWindow.addListener('closeclick', () => {
           infoWindowOpen = false;
           startGeolocationTracking();
         });
+
 
         bounds.extend(placeLocation);
       });
@@ -295,32 +283,19 @@
           stopGeolocationTracking();
         });
 
-        currentInfoWindow.addListener('closeclick', () => {
-          infoWindowOpen = false;
-          startGeolocationTracking();
+        // Sidebar entry click triggers 'spider_click' event
+        restaurantDiv.addEventListener('click', () => {
+          google.maps.event.trigger(marker, 'spider_click');
+          map.setCenter(marker.getPosition());
         });
 
-        marker.addListener('click', () => {
-          if (currentOpenInfoWindow) {
-            currentOpenInfoWindow.close();
-          }
-          currentOpenInfoWindow = currentInfoWindow;
-          currentInfoWindow.open(map, marker);
-          infoWindowOpen = true;
-          stopGeolocationTracking();
-        });
 
         restaurantDiv.addEventListener('click', () => {
-          if (currentOpenInfoWindow) {
-            currentOpenInfoWindow.close();
-          }
-          currentOpenInfoWindow = currentInfoWindow;
-          currentInfoWindow.open(map, marker);
+          google.maps.event.trigger(marker, 'spider_click');
           map.setCenter(marker.getPosition());
-          infoWindowOpen = true;
-          stopGeolocationTracking();
         });
 
+        // Handle info window close event
         currentInfoWindow.addListener('closeclick', () => {
           infoWindowOpen = false;
           startGeolocationTracking();
