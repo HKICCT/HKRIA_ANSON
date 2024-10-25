@@ -7,6 +7,8 @@
 
   <!-- Google Maps JavaScript API -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCK2tZwA7IQM_uKCg527Sr2hyLd8eSo4QM" defer></script>
+  <!-- OverlappingMarkerSpiderfier Library -->
+  <script src="https://cdn.jsdelivr.net/gh/jawj/OverlappingMarkerSpiderfier/bin/oms.min.js"></script>
 
   <script>
     let map;
@@ -46,6 +48,13 @@
     async function initMap() {
       await loadRestaurants();
       await loadRestaurantsGroup();
+
+      const oms = new OverlappingMarkerSpiderfier(map, {
+        markersWontMove: true,
+        markersWontHide: true,
+        basicFormatEvents: true
+      });
+      window.oms = oms;
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -170,7 +179,7 @@
 
       markers.forEach(marker => marker.setMap(null));
       markers = [];
-
+      const oms = window.oms;
       const bounds = new google.maps.LatLngBounds();
 
       // Display individual restaurants
@@ -195,6 +204,22 @@
 
         let currentInfoWindow = new google.maps.InfoWindow({
           content: `<div><strong>${restaurant['Restaurant Name']}</strong><br>Cuisines: ${restaurant['Cuisines']}<br>Price Range: ${restaurant['Price Range']}<br>Location: ${restaurant['Location']}</div>`
+        });
+
+        oms.addMarker(marker);
+        google.maps.event.addListener(marker, 'spider_click', () => {
+          if (currentOpenInfoWindow) {
+            currentOpenInfoWindow.close();
+          }
+          currentOpenInfoWindow = currentInfoWindow;
+          currentInfoWindow.open(map, marker);
+          infoWindowOpen = true;
+          stopGeolocationTracking();
+        });
+        
+        currentInfoWindow.addListener('closeclick', () => {
+          infoWindowOpen = false;
+          startGeolocationTracking();
         });
 
         marker.addListener('click', () => {
@@ -256,6 +281,23 @@
 
         let currentInfoWindow = new google.maps.InfoWindow({
           content: `<div><strong>${restaurant['Restaurant Name']}</strong><br>Cuisines: ${restaurant['Cuisines']}<br>Price Range: ${restaurant['Price Range']}<br>Location: ${restaurant['Location']}</div>`
+        });
+
+        oms.addMarker(marker);
+
+        google.maps.event.addListener(marker, 'spider_click', () => {
+          if (currentOpenInfoWindow) {
+            currentOpenInfoWindow.close();
+          }
+          currentOpenInfoWindow = currentInfoWindow;
+          currentInfoWindow.open(map, marker);
+          infoWindowOpen = true;
+          stopGeolocationTracking();
+        });
+
+        currentInfoWindow.addListener('closeclick', () => {
+          infoWindowOpen = false;
+          startGeolocationTracking();
         });
 
         marker.addListener('click', () => {
