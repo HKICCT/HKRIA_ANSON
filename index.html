@@ -223,12 +223,6 @@
           map.setCenter(marker.getPosition());
         });
 
-
-        restaurantDiv.addEventListener('click', () => {
-          google.maps.event.trigger(marker, 'spider_click');
-          map.setCenter(marker.getPosition());
-        });
-
                 // Handle info window close event
         currentInfoWindow.addListener('closeclick', () => {
           infoWindowOpen = false;
